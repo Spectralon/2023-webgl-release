@@ -7,6 +7,14 @@
     <script src="https://yandex.ru/games/sdk/v2"></script>
     <!-- VK Games SDK -->
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <style type="text/css">
+      #unity-container {
+        background: #828080;
+      }
+      #unity-container[loaded] {
+        background: #faf8ef;
+      }
+    </style>
     <title>2023</title>
   </head>
   <body style="text-align: center">
@@ -18,24 +26,46 @@
         height: 100%;
         left: 0%;
         top: 0%;
-        background: #faf8ef;
+        /* background: #828080; */
+        -webkit-transition: background 1s ease 2.3s;
+        -moz-transition: background 1s ease 2.3s;
+        -o-transition: background 1s ease 2.3s;
+        transition: background 1s ease 2.3s;
         display: flex;
         justify-content: center;
       "
     >
+      <div
+        id="loading-placeholder"
+        style="
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0%;
+          top: 0%;
+        display: flex;
+          z-index: 1;
+        justify-content: center;
+          align-items: center;
+          font-size: xxx-large;
+          user-select: none;
+      "
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><circle cx="60" cy="60" r="40" stroke="#bbada0" fill="none" stroke-width="20" stroke-linecap="butt"><animate attributeName="stroke-dashoffset" dur="2.2s" repeatCount="indefinite" from="0" to="500"></animate><animate attributeName="stroke-dasharray" dur="2.2s" repeatCount="indefinite" values="150 100;1 250;150 100"></animate></circle></svg>
+      </div>
       <canvas
         id="unity-canvas"
         style="
           position: absolute;
           height: 100%;
           aspect-ratio: 0.5625;
-          background: #faf8ef;
+          background: #828080;
         "
       ></canvas>
     </div>
     <script src="Build/2023-webgl.loader.js"></script>
     <script>
-      vkBridge.send('VKWebAppInit');
+		  vkBridge.send('VKWebAppInit');
     </script>
     <script>
       YaGames.init().then((ysdk) => {
@@ -46,6 +76,7 @@
     <script>
             var container = document.querySelector("#unity-container");
             var canvas = document.querySelector("#unity-canvas");
+      var placeholder = document.querySelector("#loading-placeholder");
 
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
               // Mobile device style: fill the whole browser client area with the game canvas:
@@ -76,6 +107,8 @@
                 gameInstance.SendMessage("Canvas", "WebGLCloseCallback");
                 return "Are you sure to leave this page?";
               };
+          placeholder.style.zIndex = 0;
+          container.attributes.setNamedItem(document.createAttribute("loaded"));
             })
             .catch((message) => {
               alert(message);
