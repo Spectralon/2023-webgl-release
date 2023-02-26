@@ -7,6 +7,9 @@
     <script src="https://yandex.ru/games/sdk/v2"></script>
     <!-- VK Games SDK -->
     <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+	  <script src="https://yandex.ru/ads/system/context.js" async></script>
     <style type="text/css">
       #unity-container {
         background: #828080;
@@ -62,6 +65,23 @@
           background: #828080;
         "
       ></canvas>
+	  <div
+	    style="
+			position: absolute;
+			width: 100%;
+			height: 4%;
+			top: 0%;
+			"
+	  >
+    <!-- Yandex.RTB R-A-2210769-1 -->
+    <div id="yandex_rtb_R-A-2210769-1"></div>
+    <script>window.yaContextCb.push(()=>{
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_R-A-2210769-1',
+        blockId: 'R-A-2210769-1'
+      })
+    })</script>
+	  </div>
     </div>
     <script src="Build/2023-webgl.loader.js"></script>
     <script>
