@@ -125,7 +125,7 @@
               gameInstance = unityInstance;
               window.onbeforeunload = () => {
                 gameInstance.SendMessage("Canvas", "WebGLCloseCallback");
-                return "Are you sure to leave this page?";
+                return undefined;
               };
           placeholder.style.zIndex = 0;
           container.attributes.setNamedItem(document.createAttribute("loaded"));
